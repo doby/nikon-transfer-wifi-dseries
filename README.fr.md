@@ -7,7 +7,7 @@ ordinateur) via PTP/IP. Pas de câble USB, pas d'app propriétaire (Nikon WMU es
 abandonnée et cassée sur les macOS récents), pas de `libgphoto2`. Le cœur est
 en **Python stdlib pur** ; la GUI optionnelle ajoute PySide6 + Pillow.
 
-[![tests](https://img.shields.io/badge/tests-25%20passing-brightgreen)]()
+[![tests](https://github.com/doby/nikon-transfer-wifi-dseries/actions/workflows/tests.yml/badge.svg)](https://github.com/doby/nikon-transfer-wifi-dseries/actions/workflows/tests.yml)
 [![python](https://img.shields.io/badge/python-3.11%2B-blue)]()
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)]()
 

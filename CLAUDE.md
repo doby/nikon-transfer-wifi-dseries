@@ -136,6 +136,9 @@ ne pas les défaire sans raison.
   PyInstaller pour le bundle macOS (extra `[build]`).
 - Tests Python 3.11+ (`requires-python = ">=3.11"`), sockets mockés intégralement —
   jamais besoin d'une caméra réelle pour `pytest`.
+- CI : `.github/workflows/tests.yml` lance `pytest --cov` sur Ubuntu × {3.11, 3.12,
+  3.13} + un run macOS 3.12. Aucun secret requis, aucune dépendance externe — les
+  tests sont 100 % stdlib + `pytest`/`pytest-cov` (extra `[dev]`).
 - Tailles d'octets : `format_size` (base 1024, pour la taille des fichiers)
   vs `format_storage_size` (base 1000 SI, pour l'affichage carte mémoire — colle
   à l'étiquette « 32 Go » du fabricant). Ne pas mélanger.
