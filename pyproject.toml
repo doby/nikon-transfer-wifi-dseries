@@ -55,3 +55,13 @@ addopts   = "-v --tb=short"
 [tool.coverage.run]
 source = ["nikon_transfer"]
 omit   = ["tests/*"]
+
+[tool.bandit]
+# SAST appliqué uniquement au package — `tests/` mocke des sockets et `assets/`
+# n'est que de l'outillage dev.
+exclude_dirs = ["tests", "assets", "build", "dist", ".venv", "venv"]
+# B110 (try/except/pass) et B112 (try/except/continue) : motif de tolérance
+# défensive volontaire pour les opérations réseau (close d'une socket déjà
+# morte, skip d'un objet caméra dont les méta sont corrompues, parse d'un
+# sub-IFD EXIF optionnel). Voir CLAUDE.md §« Pièges PTP/IP ».
+skips = ["B110", "B112"]

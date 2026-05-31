@@ -1,0 +1,46 @@
+name: sast
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write   # SARIF upload → onglet Security du repo
+
+jobs:
+  bandit:
+    name: bandit (Python SAST)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: pyproject.toml
+
+      - name: Install bandit
+        run: pip install 'bandit[toml,sarif]'
+
+      # Affichage humain dans le log (fail si severity ≥ MEDIUM).
+      - name: Bandit — rapport console
+        run: bandit -r nikon_transfer -c pyproject.toml --severity-level medium
+
+      # Génère un SARIF complet (toutes sévérités) pour l'onglet Security.
+      # `continue-on-error` : la qualité du rapport ne doit pas planter le job
+      # si la sévérité console a déjà tranché.
+      - name: Bandit — rapport SARIF
+        if: always()
+        run: bandit -r nikon_transfer -c pyproject.toml -f sarif -o bandit.sarif || true
+
+      - name: Upload SARIF vers GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: bandit.sarif
+          category: bandit

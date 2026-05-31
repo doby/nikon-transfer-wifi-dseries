@@ -39,7 +39,10 @@ def _read_uint16_array(data: bytes, offset: int) -> tuple[list[int], int]:
 
 
 def md5_file(path: Path) -> str:
-    h = hashlib.md5()
+    # usedforsecurity=False : empreinte utilisée pour la déduplication de
+    # fichiers, pas pour de la signature — MD5 reste adapté et plus rapide
+    # que SHA-256. Le flag fait taire les SAST (CWE-327) à juste titre.
+    h = hashlib.md5(usedforsecurity=False)
     with open(path, "rb") as f:
         for chunk in iter(lambda: f.read(65536), b""):
             h.update(chunk)

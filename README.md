@@ -8,6 +8,7 @@ on recent macOS), no `libgphoto2`. The core is **pure Python stdlib**; the optio
 GUI adds PySide6 + Pillow.
 
 [![tests](https://github.com/doby/nikon-transfer-wifi-dseries/actions/workflows/tests.yml/badge.svg)](https://github.com/doby/nikon-transfer-wifi-dseries/actions/workflows/tests.yml)
+[![sast](https://github.com/doby/nikon-transfer-wifi-dseries/actions/workflows/sast.yml/badge.svg)](https://github.com/doby/nikon-transfer-wifi-dseries/actions/workflows/sast.yml)
 [![python](https://img.shields.io/badge/python-3.11%2B-blue)]()
 [![license](https://img.shields.io/badge/license-MIT-lightgrey)]()
 

@@ -139,6 +139,11 @@ ne pas les défaire sans raison.
 - CI : `.github/workflows/tests.yml` lance `pytest --cov` sur Ubuntu × {3.11, 3.12,
   3.13} + un run macOS 3.12. Aucun secret requis, aucune dépendance externe — les
   tests sont 100 % stdlib + `pytest`/`pytest-cov` (extra `[dev]`).
+- SAST : `.github/workflows/sast.yml` lance `bandit` (config dans `[tool.bandit]`
+  de `pyproject.toml`) sur le package, fail si severity ≥ MEDIUM. Upload SARIF
+  vers l'onglet Security du repo. **B110 / B112 skipés** : nos `try/except: pass`
+  sur les sockets et le parse EXIF sont du *best-effort* défensif intentionnel —
+  ne pas les transformer en `log+raise` sans réfléchir.
 - Tailles d'octets : `format_size` (base 1024, pour la taille des fichiers)
   vs `format_storage_size` (base 1000 SI, pour l'affichage carte mémoire — colle
   à l'étiquette « 32 Go » du fabricant). Ne pas mélanger.
