@@ -1,0 +1,57 @@
+[build-system]
+requires      = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name        = "nikon-transfer"
+version     = "1.0.0"
+description = "Wi-Fi photo transfer from Nikon D5300 via PTP/IP — stdlib only, optional Qt GUI"
+readme      = "README.md"
+license     = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+authors = [
+    { name = "Stéphane Dobbelaere", email = "stephane.dobbelaere@gmail.com" },
+]
+keywords = ["nikon", "d5300", "ptp", "ptpip", "wifi", "photo", "transfer", "camera"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Environment :: X11 Applications :: Qt",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: System :: Networking",
+]
+dependencies = []           # stdlib only — no runtime deps
+
+[project.optional-dependencies]
+progress = ["tqdm>=4.0"]
+gui      = ["PySide6>=6.5", "Pillow>=10.0"]
+build    = ["PySide6>=6.5", "Pillow>=10.0", "pyinstaller>=6.0"]
+dev      = ["pytest>=8.0", "pytest-cov"]
+
+[project.scripts]
+nikon-transfer     = "nikon_transfer.cli:main"
+nikon-transfer-gui = "nikon_transfer.gui:main"
+
+[project.urls]
+Homepage   = "https://github.com/doby/nikon-transfer-wifi-dseries"
+Repository = "https://github.com/doby/nikon-transfer-wifi-dseries"
+Issues     = "https://github.com/doby/nikon-transfer-wifi-dseries/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["nikon_transfer*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts   = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["nikon_transfer"]
+omit   = ["tests/*"]

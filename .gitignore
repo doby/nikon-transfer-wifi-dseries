@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtualenvs
+.venv/
+venv/
+.env
+
+# Test / coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+.claude/
+
+# Runtime logs (timestamped session logs at the project root)
+*.log
+
+# Captures d'écran ad hoc à la racine
+/Capture d’écran*.png
