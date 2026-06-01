@@ -4,6 +4,7 @@ import argparse
 import logging
 from pathlib import Path
 
+from . import __version__
 from .log import setup as setup_logging
 from .protocol import PTPIP_HOST_DEFAULT, PTPIP_PORT, IMAGE_EXTENSIONS
 from .transfer import discover_camera, transfer_photos
@@ -25,6 +26,11 @@ Exemples :
   nikon-transfer --debug                        # paquets hex sur stderr + fichier log
   nikon-transfer --log-file ~/Desktop/cam.log  # chemin personnalisé
         """,
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"nikon-transfer {__version__}",
     )
     parser.add_argument(
         "--host",

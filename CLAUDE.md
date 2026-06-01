@@ -147,3 +147,8 @@ ne pas les défaire sans raison.
 - Tailles d'octets : `format_size` (base 1024, pour la taille des fichiers)
   vs `format_storage_size` (base 1000 SI, pour l'affichage carte mémoire — colle
   à l'étiquette « 32 Go » du fabricant). Ne pas mélanger.
+- Version : **source unique** dans `nikon_transfer/__init__.py:__version__`.
+  Lue par `pyproject.toml` (`dynamic = ["version"]` + `[tool.setuptools.dynamic]`),
+  par la CLI (`--version`), par la GUI (titre de fenêtre), et par le `.spec`
+  PyInstaller (via parsing AST pour éviter d'importer le package — sinon ça
+  trigger PySide6 au build). Ne jamais hardcoder la version ailleurs.

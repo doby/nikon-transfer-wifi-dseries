@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name        = "nikon-transfer"
-version     = "1.0.0"
+dynamic     = ["version"]   # lue depuis nikon_transfer.__version__ — voir [tool.setuptools.dynamic]
 description = "Wi-Fi photo transfer from Nikon D5300 via PTP/IP — stdlib only, optional Qt GUI"
 readme      = "README.md"
 license     = "MIT"
@@ -47,6 +47,9 @@ Issues     = "https://github.com/doby/nikon-transfer-wifi-dseries/issues"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["nikon_transfer*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "nikon_transfer.__version__"}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

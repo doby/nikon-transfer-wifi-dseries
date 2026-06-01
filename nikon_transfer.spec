@@ -5,6 +5,20 @@ Build:    pyinstaller nikon_transfer.spec --noconfirm
 Output:   dist/Nikon Transfer.app
 """
 
+# Lit la version depuis le package — source unique de vérité.
+# On évite `import nikon_transfer` (qui déclenche l'import de PySide6 via
+# le module .gui ré-exporté) en lisant directement l'AST de __init__.py.
+import ast
+from pathlib import Path
+
+_init = Path(SPECPATH) / "nikon_transfer" / "__init__.py"
+_version = next(
+    ast.literal_eval(node.value)
+    for node in ast.walk(ast.parse(_init.read_text(encoding="utf-8")))
+    if isinstance(node, ast.Assign)
+    and any(getattr(t, "id", None) == "__version__" for t in node.targets)
+)
+
 a = Analysis(
     ['nikon_transfer_gui.py'],
     pathex=[],
@@ -60,8 +74,8 @@ app = BUNDLE(
     info_plist={
         'CFBundleName': 'Nikon Transfer',
         'CFBundleDisplayName': 'Nikon Transfer D5300',
-        'CFBundleShortVersionString': '1.0.0',
-        'CFBundleVersion': '1.0.0',
+        'CFBundleShortVersionString': _version,
+        'CFBundleVersion': _version,
         'NSHighResolutionCapable': True,
         # Let Qt follow the system appearance (dark/light).
         'NSRequiresAquaSystemAppearance': False,

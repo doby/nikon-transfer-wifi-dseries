@@ -22,6 +22,7 @@ from PySide6.QtWidgets import (
     QCheckBox, QComboBox, QDialog, QMenu, QTabWidget,
 )
 
+from . import __version__
 from .client import PtpIpClient
 from .log import setup as setup_logging
 from .protocol import PTPIP_HOST_DEFAULT, IMAGE_EXTENSIONS
@@ -544,7 +545,7 @@ class MainWindow(QMainWindow):
     request_download   = Signal(list, str, bool)
     request_disconnect = Signal()
 
-    _BASE_TITLE = "Nikon D5300 — Transfert"
+    _BASE_TITLE = f"Nikon D5300 — Transfert v{__version__}"
     _CLOCK_DRIFT_WARN_SECONDS = 5 * 60   # > 5 min → warn user once per session
     _MAX_RECONNECT_ATTEMPTS = 3
     _RECONNECT_BACKOFF_MS   = [2000, 4000, 8000]   # exponential between tries
@@ -1235,7 +1236,7 @@ class MainWindow(QMainWindow):
         fw    = (info.get("device_version") or "").strip()
         title = self._BASE_TITLE
         if model:
-            title = f"{model} — Transfert"
+            title = f"{model} — Transfert v{__version__}"
             if fw:
                 title += f"  (firmware {fw})"
         self.setWindowTitle(title)
